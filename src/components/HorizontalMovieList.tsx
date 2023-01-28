@@ -1,6 +1,6 @@
 // React & dependencies
 import {FC} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, View, Dimensions} from 'react-native';
 // Material Components
 
 // My components
@@ -13,32 +13,29 @@ interface Props {
   title: string;
   listData: any;
 }
+
+const screenHeight = Dimensions.get('screen').height;
+
 const HorizontalMovieList: FC<Props> = ({title, listData}) => {
   return (
     <View
       style={{
-        height: 200,
+        height: screenHeight * 0.29,
+        marginVertical: screenHeight * 0.005,
       }}>
-      <View
+      <Text
         style={{
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'center',
-          marginTop: 10,
-          backgroundColor: 'red',
+          textAlign: 'center',
+          color: 'black',
+          fontSize: 18,
+          fontWeight: 'bold',
         }}>
-        <Text
-          style={{
-            textAlign: 'center',
-            color: 'black',
-          }}>
-          {title}
-        </Text>
-      </View>
+        {title}
+      </Text>
       <FlatList
         data={listData}
         renderItem={({item}: any) => (
-          <MovieCard movie={item} height={200} width={120} />
+          <MovieCard movie={item} height={screenHeight * 0.27} width={120} />
         )}
         keyExtractor={item => item.id.toString()}
         horizontal
