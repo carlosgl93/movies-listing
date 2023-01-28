@@ -1,6 +1,10 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Movie} from '../interfaces/movieInterface';
+
+import {StackNavigationProp} from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../interfaces/RootStackParamList';
 
 interface Props {
   movie: Movie;
@@ -11,12 +15,18 @@ interface Props {
 const MovieCard = ({movie, height = 420, width = 300}: Props) => {
   //   console.log({movie});
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   return (
-    <View style={{height, width}}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('DetailScreen', movie)}
+      activeOpacity={0.8}
+      style={{height, width}}>
       <View style={styles.imageContainer}>
         <Image source={{uri}} style={styles.image} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

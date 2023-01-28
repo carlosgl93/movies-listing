@@ -1,10 +1,8 @@
 import React from 'react';
 import {useMovies} from '../hooks/useMovies';
 import Loading from '../components/Loading';
-import MovieCard from '../components/MovieCard';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Dimensions, View, ScrollView} from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import {View, ScrollView} from 'react-native';
 import HorizontalMovieList from '../components/HorizontalMovieList';
 import MainCarousel from '../components/MainCarousel';
 
