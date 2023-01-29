@@ -7,8 +7,13 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../navigation/Navigation';
+
+import useMovieDetails from '../hooks/useMovieDetails';
+import Loading from '../components/Loading';
 
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
@@ -18,7 +23,11 @@ interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> {}
 const DetailScreen = ({route}: Props) => {
   const movie = route.params;
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-  // console.log(Dimensions.get('screen'));
+
+  const {isLoading, movieFull, cast} = useMovieDetails(movie.id);
+
+  if (isLoading) return <Loading />;
+
   return (
     <ScrollView>
       {/* // full screen container */}
@@ -31,6 +40,9 @@ const DetailScreen = ({route}: Props) => {
         <View style={styles.detailsContainer}>
           {/* container for the movie information */}
           <Text style={styles.titles}>{movie.title}</Text>
+        </View>
+        <View style={styles.detailsContainer}>
+          <Icon name="star-outline" color="grey" size={20} />
         </View>
       </View>
     </ScrollView>
