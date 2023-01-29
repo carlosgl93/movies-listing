@@ -14,6 +14,7 @@ import {RootStackParams} from '../navigation/Navigation';
 
 import useMovieDetails from '../hooks/useMovieDetails';
 import Loading from '../components/Loading';
+import MovieDetails from '../components/MovieDetails';
 
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
@@ -25,8 +26,6 @@ const DetailScreen = ({route}: Props) => {
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   const {isLoading, movieFull, cast} = useMovieDetails(movie.id);
-
-  if (isLoading) return <Loading />;
 
   return (
     <ScrollView>
@@ -41,8 +40,14 @@ const DetailScreen = ({route}: Props) => {
           {/* container for the movie information */}
           <Text style={styles.titles}>{movie.title}</Text>
         </View>
+
         <View style={styles.detailsContainer}>
-          <Icon name="star-outline" color="grey" size={20} />
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <MovieDetails movieFull={movieFull!} cast={cast} />
+          )}
+          {/* <Loading /> */}
         </View>
       </View>
     </ScrollView>
